@@ -64,7 +64,10 @@ add_cython_target(pono CXX)
 
 add_library(pono MODULE ${pono})
 
-target_link_libraries(pono pono-lib)
+target_link_libraries(pono PUBLIC pono-lib)
+if (WITH_COREIR OR WITH_COREIR_EXTERN)
+  target_link_libraries(pono PUBLIC coreir verilogAST)
+endif()
 target_include_directories(pono PUBLIC "${PROJECT_SOURCE_DIR}/deps/smt-switch/local/include/smt-switch")
 
 python_extension_module(pono)
